@@ -1,31 +1,31 @@
 let productHTML = '';
 
-products.forEach((products) => {
+products.forEach((product) => {
     productHTML += `
         <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${products.image}">
+              src="${product.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-            ${products.name}
+            ${product.name}
           </div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${products.rating.stars * 10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
-              ${products.rating.count}
+              ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(products.priceCents / 100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -47,7 +47,7 @@ products.forEach((products) => {
           </div>
 
           <button class="add-to-cart-button button-primary js-add-to-cart"
-            data-product-id="${products.id}">
+            data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`;
@@ -69,13 +69,19 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
             }
         });
 
+
+        // for the working of dropdown list (selector)
+        const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
+        const quantity = Number(quantitySelector.value);
+        console.log(quantity);
+
         // if we find the matching item, aka the matchingItem has a value
         if (matchingItem) {
-            matchingItem.quantity += 1;
+            matchingItem.quantity += quantity;
         } else {
             cart.push({
                 productId: productId,
-                quantity: 1
+                quantity: quantity
             });
         }
         
@@ -86,7 +92,10 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         }); 
 
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
         console.log(cartQuantity);
         console.log(cart);
+
+        
     });
 });
