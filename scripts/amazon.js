@@ -46,13 +46,38 @@ products.forEach((products) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+            data-product-id="${products.id}">
             Add to Cart
           </button>
         </div>`;
 
 });
 
-console.log(productHTML);
-
 document.querySelector('.js-products-grid').innerHTML = productHTML;
+
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+        
+        // checking if the products already exists or not, then we will increase the quantity
+        let matchingItem; // we made this var bcz of scope problems (undefined)
+
+        cart.forEach((item) => { // "item" will have product name and quantity
+            if (productId === item.productId) {
+                matchingItem = item;
+            }
+        });
+            // if we find the matching item, aka the matchingItem has a value
+            if (matchingItem) {
+                matchingItem.quantity += 1;
+            } else {
+                cart.push({
+                    productId: productId,
+                    quantity: 1
+                });
+            }
+        console.log(cart);
+    });
+});
+
