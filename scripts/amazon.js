@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productHTML = '';
@@ -59,42 +59,30 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productHTML;
 
+
+function updateCartQuantity() {
+// counting cart quatity to update
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+  }); 
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+};
+
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
-        
-        // checking if the products already exists or not, then we will increase the quantity
-        let matchingItem; // we made this var bcz of scope problems (undefined)
-
-        cart.forEach((item) => { // "item" will have product name and quantity
-            if (productId === item.productId) {
-                matchingItem = item;
-            }
-        });
 
 
         // for the working of dropdown list (selector)
         const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
         const quantity = Number(quantitySelector.value);
-        console.log(quantity);
 
-        // if we find the matching item, aka the matchingItem has a value
-        if (matchingItem) {
-            matchingItem.quantity += quantity;
-        } else {
-            cart.push({
-                productId,
-                quantity // shorthand for quatity: quatity and productId: productId
-            });
-        }
         
-        // counting cart quatity to update
-        let cartQuantity = 0;
-        cart.forEach((item) => {
-            cartQuantity += item.quantity;
-        }); 
-
-        document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+        addToCart(productId, quantity);
+        updateCartQuantity();
 
 
         const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
