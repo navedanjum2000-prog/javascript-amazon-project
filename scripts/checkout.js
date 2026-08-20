@@ -1,6 +1,16 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
+import { formatCurrency } from "./utils/money.js";  // these all are named exports!!!
+
+
+import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; // this is default export notice it doesnt have {} we use it if we wanna export only one thing
+
+hello();
+
+const today = dayjs();
+const deliveryDate = today.add(7, 'days');
+console.log(deliveryDate.format('dddd, MMMM D'));
 
 
 let cartSummaryHTML = '';
