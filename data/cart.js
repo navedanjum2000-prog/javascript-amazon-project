@@ -19,6 +19,16 @@ function saveToStorage() {
 };
 
 
+export function calculateCartQuantity() {
+    let cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
+    });
+    return cartQuantity;
+};``
+
+
 export function addToCart(productId, quantity) {
 // checking if the products already exists or not, then we will increase the quantity
   let matchingItem; // we made this var bcz of scope problems (undefined)
@@ -55,3 +65,18 @@ export function removeFromCart(productId) {
 
     saveToStorage();
 };
+
+
+export function updateQuantity(productId, newQuantity) {
+    let matchingItem;
+    
+    cart.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+        matchingItem = cartItem;
+        }
+    });
+
+    matchingItem.quantity = newQuantity;
+
+    saveToStorage();   
+}
