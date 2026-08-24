@@ -1,17 +1,14 @@
 import { cart, removeFromCart, updateQuantity, updateDeliveryOption } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";  // these all are named exports!!!
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js'
 
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; // this is default export notice it doesnt have {} we use it if we wanna export only one thing
 
-hello();
-
-const today = dayjs();
-const deliveryDate = today.add(7, 'days');
-console.log(deliveryDate.format('dddd, MMMM D'));
+// hello();
 
 
 export function renderOrderSummary() {
@@ -131,6 +128,8 @@ export function renderOrderSummary() {
           const container = document.querySelector(`.js-cart-item-container-${productId}`);
           container.remove();
 
+          renderPaymentSummary();
+
           UpdateCheckoutLink();
       });
   });
@@ -195,6 +194,7 @@ export function renderOrderSummary() {
       const {productId, deliveryOptionId} = element.dataset; // SHORT HAND PROPERTY, DOES THE SAME THING AS THE CODE WRITTTEN ABOVE
       updateDeliveryOption(productId, deliveryOptionId)
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 };
