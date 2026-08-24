@@ -7,6 +7,7 @@ import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.j
 
 import { hello } from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; // this is default export notice it doesnt have {} we use it if we wanna export only one thing
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 // hello();
 
@@ -125,24 +126,28 @@ export function renderOrderSummary() {
           const productId = link.dataset.productId;
           removeFromCart(productId);
           
-          const container = document.querySelector(`.js-cart-item-container-${productId}`);
-          container.remove();
+          // const container = document.querySelector(`.js-cart-item-container-${productId}`);
+          // container.remove();
+          renderOrderSummary(); // recursion doing the job of 2 lines above, updating the page correspoding to storage instead!
 
           renderPaymentSummary();
 
-          UpdateCheckoutLink();
+          // UpdateCheckoutLink();
+          renderCheckoutHeader(); // HW-15
       });
   });
 
-  // HW 14
-  function UpdateCheckoutLink() {
-      let cartQuantity = 0;
-      cart.forEach((cartItem) => {
-          cartQuantity += cartItem.quantity;  
-      });
-      document.querySelector('.js-return-to-home-link').innerHTML = cartQuantity;
-  }
-  UpdateCheckoutLink();
+  // // // HW-15
+  // // HW 14
+  // function UpdateCheckoutLink() {
+  //     let cartQuantity = 0;
+  //     cart.forEach((cartItem) => {
+  //         cartQuantity += cartItem.quantity;  
+  //     });
+  //     document.querySelector('.js-return-to-home-link').innerHTML = cartQuantity;
+  // }
+  // UpdateCheckoutLink();
+  renderCheckoutHeader(); // HW-15
 
 
   // MAKING THE UPDATE BUTTON WORK
@@ -182,7 +187,8 @@ export function renderOrderSummary() {
         );
         quantityLabel.innerHTML = newQuantity;
 
-        UpdateCheckoutLink();
+        renderCheckoutHeader();
+        renderPaymentSummary();
       });
     });
 
