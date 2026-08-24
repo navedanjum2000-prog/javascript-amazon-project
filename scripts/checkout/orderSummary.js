@@ -125,8 +125,9 @@ export function renderOrderSummary() {
           const productId = link.dataset.productId;
           removeFromCart(productId);
           
-          const container = document.querySelector(`.js-cart-item-container-${productId}`);
-          container.remove();
+          // const container = document.querySelector(`.js-cart-item-container-${productId}`);
+          // container.remove();
+          renderOrderSummary(); // recursion doing the job of 2 lines above, updating the page correspoding to storage instead!
 
           renderPaymentSummary();
 
@@ -183,6 +184,7 @@ export function renderOrderSummary() {
         quantityLabel.innerHTML = newQuantity;
 
         UpdateCheckoutLink();
+        renderPaymentSummary();
       });
     });
 
