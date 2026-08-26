@@ -1,16 +1,16 @@
 class Cart {
-    cartItems;  // same thing as witing out cartitems = undefined;
-    localStorageKey;
+    cartItems;  // same thing as witing out cartitems = undefined;     // THIS IS publicpropery & CAN BE ACCESSED ANYWHERE!!!
+    #localStorageKey;//THIS IS CALLED privateproperty// # MAKES THE PROPERTY PIRVATE SO IT CANT BE ACCESSED FROM OUT OF THE CLASS TO CHANGE IT OR DO SUS STUFF
 
 
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     };
 
 
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey))
+    #loadFromStorage() {     // THIS METHORD IS ALSO PRIVATE NOW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey))
 
         if (!this.cartItems) {                         // NOTE this GIVES US THE OUTER OBJECT WHICH IS cart, IT DOESNT MATTER WHAT THE VARIABLE NAME IS
             this.cartItems = [{
@@ -29,7 +29,7 @@ class Cart {
 
 
     saveToStorage() {                            // (3rd object)
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId, quantity) {
