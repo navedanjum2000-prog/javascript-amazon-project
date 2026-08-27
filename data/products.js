@@ -111,8 +111,11 @@ export function loadProductsFetch() {
 
     console.log('load products!');
 
-    return promise;
+  }).catch((ANYerror) => {    // anyerror will contain info about the error if theres an error
+    console.log('Unexpected error. Please try again later.');
   }); 
+
+  return promise;
 };
 /*
 loadProductsFetch().then(() => {
@@ -136,6 +139,10 @@ export function loadProducts(fun) {
 
     return promise;
   });
+
+  xhr.addEventListener('error', (ANYerror) => (    // ERROR HANDLING        // anyerror will contain info about the error if theres an error
+    console.log('Unexpected error. Please try again later.');
+  ));
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send(); // .send is asyncroonus so we have to wait for the reponse thats why eventlistener on top

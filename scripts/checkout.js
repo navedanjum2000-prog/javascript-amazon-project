@@ -10,15 +10,21 @@ import { renderCheckoutHeader } from "./checkout/checkoutHeader.js"; // // HW-15
 
 // ASYNC AWAIT HERE !!!!!!
 async function loadPage() {  // asyc makes a function promise without the extra code we write manually!!!!!! this wraps the whole code in promise
+    try {
+        // throw 'error1';     // we can manually create error messages using throw
 
-    await loadProductsFetch(); // await waits for the asyncrobnous code to finsish and we can write code as normal
+        await loadProductsFetch(); // await waits for the asyncrobnous code to finsish and we can write code as normal
 
-    const value = await new Promise((resolve) => {
-        loadCart(() => {
-            resolve('2ND_VALUE');
+        const value = await new Promise((resolve, reject) => {
+            // throw 'error2';
+            loadCart(() => {
+                // reject('error3');        // reject creates an error in the future
+                resolve('2ND_VALUE');
+            });
         });
-    });
-
+    } catch (ANYerror) {        // anyerror will contain info about the error if theres an error...
+        console.log('Unexpected error. Please try again later.');
+    };
 
     renderCheckoutHeader(); // // HW-15
     renderOrderSummary();
