@@ -60,6 +60,36 @@ class Clothing extends Product {
   }
 }
 
+/*
+// built in classes:-
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleDateString());
+*/
+/*
+console.log(this); // theres no object for 'this' to point to so it will be undefined
+
+const obj2 = {
+  a: 2,
+  b: this.a // this will give error as obj2 hasnt been created yet, and were trying to acess it
+};
+*/
+
+/*
+function logThis() {
+  console.log(this); // WERE NOT INSIDE AN OBJ SO 'THIS' WILL BE UNDEFINED!!!
+}
+logThis();
+logThis.call('hello'); // call WILL SET THW VALUE IN THE PLACE OF 'THIS'!!!
+// WE CAN CHANGE IT WHATEVER WE WANT USING .call!!!!!
+
+const obj3 = {
+  method: () => {
+    console.log(this); // here this will have same value as outside the arrow fxn WHICH IS UNDEFINED, only in this case!!!
+  }
+};
+obj3.method();
+*/
 
 export const products = [
   {
