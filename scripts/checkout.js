@@ -8,6 +8,31 @@ import { loadCart } from "../data/cart.js";
 import { renderCheckoutHeader } from "./checkout/checkoutHeader.js"; // // HW-15
 
 
+// ASYNC AWAIT HERE !!!!!!
+async function loadPage() {  // asyc makes a function promise without the extra code we write manually!!!!!! this wraps the whole code in promise
+
+    await loadProductsFetch(); // await waits for the asyncrobnous code to finsish and we can write code as normal
+
+    const value = await new Promise((resolve) => {
+        loadCart(() => {
+            resolve('2ND_VALUE');
+        });
+    });
+
+
+    renderCheckoutHeader(); // // HW-15
+    renderOrderSummary();
+    renderPaymentSummary();
+
+    // return 'value_2'; // this is same as resolve('value2');
+}
+loadPage()// .then((value) => {
+//   console.log('next step');
+//   console.log(value);
+// });
+
+
+/*
 Promise.all([    // PROMISE.ALL RUNS MULTIPLE PROMISES !!!!!!!!!!!!!!!!! 
     loadProductsFetch(),
     new Promise((resolve) => {
@@ -23,7 +48,7 @@ Promise.all([    // PROMISE.ALL RUNS MULTIPLE PROMISES !!!!!!!!!!!!!!!!!
     renderOrderSummary();
     renderPaymentSummary();
 });
-
+*/
 
 
 
