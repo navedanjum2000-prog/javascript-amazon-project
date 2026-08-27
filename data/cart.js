@@ -103,3 +103,16 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 
     saveToStorage();  
 };
+
+
+export function loadCart(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    console.log(xhr.response);
+    fun();
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart'); // ususally this gives us cart put this is just practice so it will give one line string
+  xhr.send(); // .send is asyncroonus so we have to wait for the reponse thats why eventlistener on top
+}
